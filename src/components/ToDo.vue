@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     tdDoneAt() {
-      return this.dirty ? (this.isDone ? new Date() : "") : this.isDone;
+      return this.dirty ? (this.isDone ? new Date() : "") : this.doneAt;
     }
   },
   watch: {
