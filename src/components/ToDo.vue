@@ -23,6 +23,8 @@
 <script>
 import ToDo from "../ToDo";
 
+const MS_IN_DAY = 86400000;
+
 export default {
   props: {
     doneAt: Date,
@@ -41,7 +43,8 @@ export default {
     this.isDone =
       this.doneAt &&
       this.doneAt.getDate &&
-      this.doneAt.getDate() >= new Date().getDate();
+      this.doneAt.getDate() >= new Date().getDate() &&
+      new Date() - this.doneAt < MS_IN_DAY;
   },
   computed: {
     tdDoneAt() {
