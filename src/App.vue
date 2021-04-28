@@ -1,8 +1,15 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <ToDo name="foo" @change="$log($event)" />
-    <ToDo name="bar" doneAt="new Date('9-15-1989')" @change="$log($event)" />
+    Dailies <button>Add</button>
+    <ToDo name="foo" @change="$log($event)" @deleted="$log('deleted')" />
+    <ToDo name="bar" :doneAt="new Date('9-15-1989')" @change="$log($event)" />
+    <ToDo name="baz" :doneAt="new Date()" @change="$log($event)" />
+    <p>
+      Enjoy the journey
+    </p>
+    <p>
+      Have self compassion
+    </p>
   </div>
 </template>
 

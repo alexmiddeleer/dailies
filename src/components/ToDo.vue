@@ -14,6 +14,9 @@
       <button @click="editing = !editing">
         {{ editing ? "Done" : "Edit" }}
       </button>
+      <button @click="$emit('deleted')">
+        Delete
+      </button>
     </label>
   </div>
 </template>
@@ -22,7 +25,7 @@ import ToDo from "../ToDo";
 
 export default {
   props: {
-    doneAt: String,
+    doneAt: Date,
     name: String
   },
   data() {
@@ -35,7 +38,10 @@ export default {
   },
   created() {
     this.tdName = this.name;
-    this.isDone = !!this.doneAt;
+    this.isDone =
+      this.doneAt &&
+      this.doneAt.getDate &&
+      this.doneAt.getDate() >= new Date().getDate();
   },
   computed: {
     tdDoneAt() {
