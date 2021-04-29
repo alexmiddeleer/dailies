@@ -1,23 +1,24 @@
 <template>
   <div>
     <label>
-      <input type="checkbox" v-model="isDone" @change="dirty = true" />
-      <template v-if="!editing">
-        {{ tdName }}
-      </template>
+      <input type="checkbox" v-model="isDone" />
+      <span v-show="!editing">
+        {{ name }}
+      </span>
       <input
-        v-if="editing"
+        v-show="editing"
         type="text"
-        v-model="tdName"
-        @change="dirty = true"
+        ref="textInput"
+        v-model="name"
+        @blur="editing = false"
       />
-      <button @click="editing = !editing">
-        {{ editing ? "Done" : "Edit" }}
-      </button>
-      <button @click="$emit('deleted')">
-        Delete
-      </button>
     </label>
+    <button @click="editing = true" v-if="!editing">
+      Edit
+    </button>
+    <button @click="$emit('deleted', todo)">
+      Delete
+    </button>
   </div>
 </template>
 <script>
@@ -27,38 +28,38 @@ const MS_IN_DAY = 86400000;
 
 export default {
   props: {
-    doneAt: Date,
-    name: String
+    todo: ToDo
   },
   data() {
     return {
       isDone: false,
-      tdName: "",
-      dirty: false,
+      name: "",
       editing: false
     };
   },
   created() {
-    this.tdName = this.name;
+    const { name, doneAt, isNew } = this.todo;
+    this.name = name;
+    this.editing = isNew;
     this.isDone =
-      this.doneAt &&
-      this.doneAt.getDate &&
-      this.doneAt.getDate() >= new Date().getDate() &&
-      new Date() - this.doneAt < MS_IN_DAY;
-  },
-  computed: {
-    tdDoneAt() {
-      return this.dirty ? (this.isDone ? new Date() : "") : this.doneAt;
-    }
+      doneAt.getDate() >= new Date().getDate() &&
+      new Date() - doneAt < MS_IN_DAY;
   },
   watch: {
-    tdDoneAt(newVal) {
-      if (!this.dirty) return;
-      this.$emit("change", new ToDo(newVal, this.tdName));
+    isDone(newVal) {
+      this.todo.done = newVal;
+      this.$emit("change", this.todo);
     },
-    tdName(newVal) {
-      if (!this.dirty) return;
-      this.$emit("change", new ToDo(this.tdDoneAt, newVal));
+    name(newVal) {
+      this.todo.name = newVal;
+      this.$emit("change", this.todo);
+    },
+    editing(newVal) {
+      if (newVal) {
+        this.$nextTick(function() {
+          this.$refs.textInput.focus();
+        });
+      }
     }
   }
 };

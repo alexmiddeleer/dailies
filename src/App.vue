@@ -3,11 +3,11 @@
     Dailies <button @click="onAddClick">Add</button>
     <template v-for="todo in todos">
       <ToDo
-        :name="todo.name"
+        class="todo"
+        :todo="todo"
         :key="todo.id"
-        :doneAt="todo.doneAt"
-        @change="updateTodo(todo, $event)"
-        @deleted="deleteTodo(todo)"
+        @change="updateTodo($event)"
+        @deleted="deleteTodo($event)"
       />
     </template>
     <p>
@@ -21,7 +21,7 @@
 
 <script>
 import ToDo from "./components/ToDo.vue";
-import ToDoClass from "./ToDo";
+import ToDoClass, { deserializeTodoPojo } from "./ToDo";
 
 export default {
   name: "App",
@@ -33,9 +33,7 @@ export default {
   },
   created() {
     const stored = JSON.parse(localStorage.getItem("storedTodos")) || [];
-    const todos = stored.map(
-      pojo => new ToDoClass(new Date(pojo.doneAt), pojo.name)
-    );
+    const todos = stored.map(deserializeTodoPojo);
     this.todos = todos;
   },
   methods: {
@@ -48,14 +46,19 @@ export default {
       this.todos.unshift(new ToDoClass());
       console.log("this.todos: ", this.todos);
       this.onUpdate();
+      this.$nextTick(function() {
+        if (!(this && this.$el && this.$el.querySelector)) return;
+        const input = this.$el.querySelector(".todo input[type=text]");
+        if (input && input.focus) {
+          input.focus();
+        }
+      });
     },
     deleteTodo(todo) {
       this.todos = this.todos.filter(t => t.id !== todo.id);
       this.onUpdate();
     },
-    updateTodo(oldTodo, newTodo) {
-      oldTodo.name = newTodo.name;
-      oldTodo.doneAt = newTodo.doneAt;
+    updateTodo() {
       this.onUpdate();
     }
   }
