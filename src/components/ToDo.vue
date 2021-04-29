@@ -2,7 +2,7 @@
   <div>
     <label>
       <input type="checkbox" v-model="isDone" />
-      <span v-show="!editing">
+      <span class="goalName" v-show="!editing">
         {{ name }}
       </span>
       <input
@@ -13,12 +13,14 @@
         @blur="editing = false"
       />
     </label>
-    <button @click="editing = true" v-if="!editing">
-      Edit
-    </button>
-    <button @click="$emit('deleted', todo)">
-      Delete
-    </button>
+    <span class="buttons">
+      <button @click="editing = true" v-if="!editing">
+        ✍️
+      </button>
+      <button @click="$emit('deleted', todo)">
+        🗑
+      </button>
+    </span>
   </div>
 </template>
 <script>
@@ -64,4 +66,28 @@ export default {
   }
 };
 </script>
-<style></style>
+<style scoped>
+div {
+  justify-content: space-between;
+  display: flex;
+}
+
+label {
+  display: flex;
+  align-items: center;
+}
+
+.goalName {
+  text-align: left;
+}
+
+.buttons {
+  white-space: nowrap;
+  display: flex;
+  margin-left: 10px;
+  align-items: center;
+}
+.buttons button:not(:last-child) {
+  margin-right: 10px;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    Dailies <button @click="onAddClick">Add</button>
+    Dailies <br /><button @click="onAddClick">➕</button>
     <template v-for="todo in todos">
       <ToDo
         class="todo"
@@ -11,10 +11,7 @@
       />
     </template>
     <p>
-      Enjoy the journey
-    </p>
-    <p>
-      Have self compassion
+      💪
     </p>
   </div>
 </template>
@@ -71,5 +68,11 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  font-size: 20px;
+}
+.todo {
+  padding: 15px 10px 0;
+  border-top: 1px solid #ddd;
+  margin-top: 10px;
 }
 </style>
