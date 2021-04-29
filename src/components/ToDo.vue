@@ -26,8 +26,6 @@
 <script>
 import ToDo from "../ToDo";
 
-const MS_IN_DAY = 86400000;
-
 export default {
   props: {
     todo: ToDo
@@ -40,12 +38,10 @@ export default {
     };
   },
   created() {
-    const { name, doneAt, isNew } = this.todo;
+    const { name, isNew, isDone } = this.todo;
     this.name = name;
     this.editing = isNew;
-    this.isDone =
-      doneAt.getDate() >= new Date().getDate() &&
-      new Date() - doneAt < MS_IN_DAY;
+    this.isDone = isDone;
   },
   watch: {
     isDone(newVal) {

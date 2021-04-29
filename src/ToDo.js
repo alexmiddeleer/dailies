@@ -1,3 +1,5 @@
+const MS_IN_DAY = 86400000;
+
 export default class ToDo {
   constructor(doneAt, name) {
     this.doneAt = doneAt || new Date(0);
@@ -17,6 +19,13 @@ export default class ToDo {
 
   get doneAt() {
     return this._doneAt instanceof Date ? this._doneAt : new Date(0);
+  }
+
+  get isDone() {
+    return (
+      this.doneAt >= new Date().getDate() &&
+      new Date() - this.doneAt < MS_IN_DAY
+    );
   }
 
   set doneAt(d) {

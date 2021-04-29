@@ -11,8 +11,17 @@
       />
     </template>
     <p>
-      💪
+      {{ statusEmoji }}
     </p>
+    <template v-for="todo in doneTodos">
+      <ToDo
+        class="todo done"
+        :todo="todo"
+        :key="todo.id"
+        @change="updateTodo($event)"
+        @deleted="deleteTodo($event)"
+      />
+    </template>
   </div>
 </template>
 
@@ -26,17 +35,21 @@ export default {
     ToDo
   },
   data() {
-    return { todos: [] };
+    return { todos: [], doneTodos: [] };
   },
   created() {
     const stored = JSON.parse(localStorage.getItem("storedTodos")) || [];
     const todos = stored.map(deserializeTodoPojo);
-    this.todos = todos;
+    this.todos = todos.filter(t => !t.isDone);
+    this.doneTodos = todos.filter(t => t.isDone);
   },
   methods: {
     $log: console.log,
     onUpdate() {
-      localStorage.setItem("storedTodos", JSON.stringify(this.todos));
+      localStorage.setItem(
+        "storedTodos",
+        JSON.stringify(this.todos.concat(this.doneTodos))
+      );
       console.log(JSON.stringify(this.todos));
     },
     onAddClick() {
@@ -53,10 +66,26 @@ export default {
     },
     deleteTodo(todo) {
       this.todos = this.todos.filter(t => t.id !== todo.id);
+      this.doneTodos = this.doneTodos.filter(t => t.id !== todo.id);
       this.onUpdate();
     },
     updateTodo() {
+      const todos = [...this.todos, ...this.doneTodos];
+      this.todos = todos.filter(t => !t.isDone);
+      this.doneTodos = todos.filter(t => t.isDone);
       this.onUpdate();
+    }
+  },
+  computed: {
+    statusEmoji() {
+      const middleOptions = ["☝️", "🙂", "👍"];
+      const total = this.doneTodos.length + this.todos.length;
+      const doneCount = this.doneTodos.length;
+      if (doneCount === 0) return "😴";
+      if (doneCount === total) return "💪";
+      return middleOptions[
+        Math.floor(((this.doneTodos.length / total) * 100) / 33)
+      ];
     }
   }
 };
