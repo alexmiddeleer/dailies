@@ -71,10 +71,14 @@ div {
 label {
   display: flex;
   align-items: center;
+  flex-grow: 1;
+  padding: 10px 0;
 }
 
 .goalName {
   text-align: left;
+  flex-grow: 1;
+  padding-left: 10px;
 }
 
 .buttons {

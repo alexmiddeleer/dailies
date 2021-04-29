@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    Dailies <br /><button @click="onAddClick">➕</button>
+    <h1>Dailies</h1>
+    <button class="add" @click="onAddClick">➕</button>
     <template v-for="todo in todos">
       <ToDo
         class="todo"
@@ -10,9 +11,9 @@
         @deleted="deleteTodo($event)"
       />
     </template>
-    <p>
+    <div class="status">
       {{ statusEmoji }}
-    </p>
+    </div>
     <template v-for="todo in doneTodos">
       <ToDo
         class="todo done"
@@ -22,6 +23,7 @@
         @deleted="deleteTodo($event)"
       />
     </template>
+    <h1>Alex Middeleer © {{ new Date().getFullYear() }}</h1>
   </div>
 </template>
 
@@ -96,12 +98,21 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   font-size: 20px;
+  box-sizing: border-box;
+  paddin: 10px;
 }
-.todo {
-  padding: 15px 10px 0;
+.todo,
+.status {
   border-top: 1px solid #ddd;
-  margin-top: 10px;
+}
+.status {
+  padding: 10px 0;
+}
+.add {
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: 14px;
 }
 </style>
