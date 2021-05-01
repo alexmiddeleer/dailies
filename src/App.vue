@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <h1>Dailies</h1>
-    <button class="add" @click="onAddClick">➕</button>
+    <header>
+      <button class="add" @click="onAddClick">➕</button>
+      <h1>Dailies</h1>
+    </header>
     <template v-for="todo in todos">
       <ToDo
         class="todo"
@@ -23,7 +25,7 @@
         @deleted="deleteTodo($event)"
       />
     </template>
-    <h1>Alex Middeleer © {{ new Date().getFullYear() }}</h1>
+    <footer>Alex Middeleer © {{ new Date().getFullYear() }}</footer>
   </div>
 </template>
 
@@ -114,5 +116,20 @@ export default {
 }
 h1 {
   font-size: 14px;
+}
+footer {
+  margin-top: 50px;
+  font-size: 14px;
+}
+header {
+  position: relative;
+  display: block;
+  text-align: right;
+}
+header h1 {
+  position: absolute;
+  text-align: center;
+  top: 0;
+  width: 100%;
 }
 </style>
