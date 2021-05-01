@@ -139,4 +139,12 @@ header button {
   z-index: 2;
   padding: 0;
 }
+button {
+  border: 1px solid #ddd;
+  border-radius: 40px;
+  outline: none;
+  font: inherit;
+  color: inherit;
+  background: none;
+}
 </style>
