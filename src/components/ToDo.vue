@@ -34,14 +34,21 @@ export default {
     return {
       isDone: false,
       name: "",
-      editing: false
+      editing: false,
+      monitorInterval: null
     };
   },
   created() {
-    const { name, isNew, isDone } = this.todo;
+    const { name, isNew } = this.todo;
     this.name = name;
     this.editing = isNew;
-    this.isDone = isDone;
+  },
+  mounted() {
+    this.checkTime();
+    this.monitorInterval = setInterval(this.checkTime.bind(this), 10000);
+  },
+  beforeDestroy() {
+    clearInterval(this.monitorInterval);
   },
   watch: {
     isDone(newVal) {
@@ -58,6 +65,11 @@ export default {
           this.$refs.textInput.focus();
         });
       }
+    }
+  },
+  methods: {
+    checkTime() {
+      this.isDone = this.todo.isDone;
     }
   }
 };
