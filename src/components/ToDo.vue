@@ -10,6 +10,7 @@
         type="text"
         ref="textInput"
         v-model="name"
+        placeholder="Take three deep breaths"
         @blur="editing = false"
       />
     </label>

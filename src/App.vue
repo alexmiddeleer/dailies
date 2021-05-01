@@ -111,9 +111,6 @@ export default {
 .status {
   padding: 10px 0;
 }
-.add {
-  margin-bottom: 10px;
-}
 h1 {
   font-size: 14px;
 }
@@ -124,12 +121,21 @@ footer {
 header {
   position: relative;
   display: block;
-  text-align: right;
+  margin-bottom: 10px;
+  height: 40px;
 }
 header h1 {
   position: absolute;
   text-align: center;
   top: 0;
   width: 100%;
+}
+header button {
+  position: absolute;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  z-index: 2;
+  padding: 0;
 }
 </style>

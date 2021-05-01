@@ -3,7 +3,7 @@ const MS_IN_DAY = 86400000;
 export default class ToDo {
   constructor(doneAt, name) {
     this.doneAt = doneAt || new Date(0);
-    this.name = name || "Take three deep breaths";
+    this.name = name || "";
     this.id = `${Date.now()}-${Math.random()}`;
     this.isNew = true;
   }
