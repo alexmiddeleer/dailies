@@ -103,4 +103,9 @@ label {
 .buttons button:not(:last-child) {
   margin-right: 10px;
 }
+input[type="checkbox"] {
+  width: 20px;
+  min-width: 20px;
+  height: 20px;
+}
 </style>

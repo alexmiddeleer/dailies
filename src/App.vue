@@ -69,6 +69,7 @@ export default {
       });
     },
     deleteTodo(todo) {
+      if (!confirm(`Delete ${todo.name}?`)) return;
       this.todos = this.todos.filter(t => t.id !== todo.id);
       this.doneTodos = this.doneTodos.filter(t => t.id !== todo.id);
       this.onUpdate();
