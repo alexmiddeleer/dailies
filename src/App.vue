@@ -129,7 +129,6 @@ footer {
 header {
   position: relative;
   display: block;
-  margin-bottom: 10px;
   height: 40px;
   /* border-bottom: 1px solid #444; */
 }
@@ -142,14 +141,16 @@ header h1 {
 header button {
   position: absolute;
   right: 0;
-  width: 30px;
-  height: 30px;
   z-index: 2;
-  padding: 0;
 }
 button {
   border: 1.5px solid #444;
+  text-align: center;
+  line-height: 0;
+  width: 30px;
+  height: 30px;
   outline: none;
+  padding: 0;
   font: inherit;
   color: inherit;
   background: none;

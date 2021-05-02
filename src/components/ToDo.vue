@@ -103,9 +103,4 @@ input[type="checkbox"] {
   min-width: 20px;
   height: 20px;
 }
-
-button {
-  width: 30px;
-  height: 30px;
-}
 </style>
