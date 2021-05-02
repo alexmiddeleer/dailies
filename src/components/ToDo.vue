@@ -16,10 +16,10 @@
     </label>
     <span class="buttons">
       <button @click="editing = true" v-if="!editing">
-        ✍️
+        ✎
       </button>
       <button @click="$emit('deleted', todo)">
-        🗑
+        <b>x</b>
       </button>
     </span>
   </div>
@@ -102,5 +102,10 @@ input[type="checkbox"] {
   width: 20px;
   min-width: 20px;
   height: 20px;
+}
+
+button {
+  width: 30px;
+  height: 30px;
 }
 </style>

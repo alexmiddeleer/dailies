@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header>
-      <button class="add" @click="onAddClick">➕</button>
+      <button class="add" @click="onAddClick"><b>+</b></button>
       <h1>Dailies</h1>
     </header>
     <template v-for="todo in todos">
@@ -32,20 +32,27 @@
 <script>
 import ToDo from "./components/ToDo.vue";
 import ToDoClass, { deserializeTodoPojo } from "./ToDo";
-
 export default {
   name: "App",
   components: {
     ToDo
   },
   data() {
-    return { todos: [], doneTodos: [] };
+    return {
+      todos: [],
+      doneTodos: [],
+      timeCheckInterval: -1
+    };
   },
   created() {
     const stored = JSON.parse(localStorage.getItem("storedTodos")) || [];
     const todos = stored.map(deserializeTodoPojo);
     this.todos = todos.filter(t => !t.isDone);
     this.doneTodos = todos.filter(t => t.isDone);
+  },
+  mounted() {},
+  beforeDestroy() {
+    clearInterval(this.timeCheckInterval);
   },
   methods: {
     onUpdate() {
@@ -94,20 +101,23 @@ export default {
 </script>
 
 <style>
+body {
+  background-color: black;
+  color: #ddd;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
-  color: #2c3e50;
   font-size: 20px;
   box-sizing: border-box;
-  paddin: 10px;
+  padding: 10px;
 }
-.todo,
-.status {
-  border-top: 1px solid #ddd;
+.todo {
+  font-size: 15px;
 }
 .status {
-  padding: 10px 0;
+  padding: 30px 0;
+  font-size: 40px;
 }
 h1 {
   font-size: 14px;
@@ -121,6 +131,7 @@ header {
   display: block;
   margin-bottom: 10px;
   height: 40px;
+  /* border-bottom: 1px solid #444; */
 }
 header h1 {
   position: absolute;
@@ -131,14 +142,13 @@ header h1 {
 header button {
   position: absolute;
   right: 0;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   z-index: 2;
   padding: 0;
 }
 button {
-  border: 1px solid #ddd;
-  border-radius: 40px;
+  border: 1.5px solid #444;
   outline: none;
   font: inherit;
   color: inherit;
