@@ -2,6 +2,7 @@ import ToDo from "@/components/ToDo.vue";
 import ToDoClass from "@/ToDo";
 import FakeTimers from "@sinonjs/fake-timers";
 import { mount } from "@vue/test-utils";
+import Vue from "vue";
 
 describe("ToDo component", () => {
   let clock;
@@ -39,11 +40,9 @@ describe("ToDo component", () => {
       }
     });
 
-    await wrapper.find('input[type="checkbox"]').trigger("input");
     expect(wrapper.find("input:checked").exists()).toBeTruthy();
-
     clock.tick(2 * 1000 * 60 * 60 * 24);
-    await wrapper.find('input[type="checkbox"]').trigger("input");
+    await Vue.nextTick();
     expect(wrapper.find("input:checked").exists()).toBeFalsy();
   });
 });

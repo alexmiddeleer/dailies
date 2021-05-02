@@ -23,8 +23,8 @@ export default class ToDo {
 
   get isDone() {
     return (
-      this.doneAt.getDate() >= new Date().getDate() &&
-      new Date() - this.doneAt < MS_IN_DAY
+      this.doneAt.getDate() == new Date().getDate() &&
+      new Date() - this._doneAt < MS_IN_DAY
     );
   }
 

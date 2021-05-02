@@ -48,17 +48,14 @@ export default {
     this.doneTodos = todos.filter(t => t.isDone);
   },
   methods: {
-    $log: console.log,
     onUpdate() {
       localStorage.setItem(
         "storedTodos",
         JSON.stringify(this.todos.concat(this.doneTodos))
       );
-      console.log(JSON.stringify(this.todos));
     },
     onAddClick() {
       this.todos.unshift(new ToDoClass());
-      console.log("this.todos: ", this.todos);
       this.onUpdate();
       this.$nextTick(function() {
         if (!(this && this.$el && this.$el.querySelector)) return;

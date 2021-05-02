@@ -36,20 +36,20 @@ export default {
       isDone: false,
       name: "",
       editing: false,
-      monitorInterval: null
+      intrvl: -1
     };
   },
   created() {
-    const { name, isNew } = this.todo;
+    const { name, isNew, isDone } = this.todo;
     this.name = name;
     this.editing = isNew;
-  },
-  mounted() {
-    this.checkTime();
-    this.monitorInterval = setInterval(this.checkTime.bind(this), 10000);
+    this.isDone = isDone;
+    this.intrvl = setInterval(() => {
+      return (this.isDone = this.todo.isDone);
+    }, 1000);
   },
   beforeDestroy() {
-    clearInterval(this.monitorInterval);
+    this.clearInterval(this.intrvl);
   },
   watch: {
     isDone(newVal) {
@@ -66,11 +66,6 @@ export default {
           this.$refs.textInput.focus();
         });
       }
-    }
-  },
-  methods: {
-    checkTime() {
-      this.isDone = this.todo.isDone;
     }
   }
 };
