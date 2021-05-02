@@ -49,7 +49,7 @@ export default {
     }, 1000);
   },
   beforeDestroy() {
-    this.clearInterval(this.intrvl);
+    clearInterval(this.intrvl);
   },
   watch: {
     isDone(newVal) {
