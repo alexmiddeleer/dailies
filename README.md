@@ -1,5 +1,7 @@
 # dailies
 
+A serverless minimalist web-app for crossing off items from your daily todo list.
+
 ## Project setup
 ```
 npm install
