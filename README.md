@@ -1,6 +1,6 @@
 # dailies
 
-A serverless minimalist web-app for crossing off items from your daily todo list.
+A serverless minimalist web-app written with Vue 2 for crossing off items from a daily todo list.
 
 ## Project setup
 ```
